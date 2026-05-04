@@ -1,3 +1,5 @@
+import random
+
 import osmnx as ox
 import networkx as nx
 from data import electrolineras
@@ -83,7 +85,30 @@ class GraphEngine:
                 continue
 
         return best_station, best_route, min_dist
+    
+    def energy_weight(self, consumo_por_km=0.2):
+        for u, v, k, data in self.graph.edges(keys=True, data=True):
 
+            distancia_km = data["length"] / 1000
+
+            consumo = distancia_km * consumo_por_km
+
+            factor = random.uniform(1, 1.5)
+            data["consumo"] = consumo * factor
+
+    def get_route_consumption(self, route):
+        consumo = 0
+
+        for i in range(len(route) - 1):
+            u = route[i]
+            v = route[i + 1]
+
+            edge_data = self.graph.get_edge_data(u, v)[0]
+
+            
+            consumo += edge_data.get("consumo", 0)
+        return consumo
+    
     def get_shortest_path(self, origin_node, target_node):
         if not self.graph:
             self.load_map()

@@ -5,20 +5,44 @@ import osmnx as ox
 engine = GraphEngine()
 engine.load_map()
 
+engine.energy_weight()
 engine.assign_nodes(electrolineras)
 engine.assign_nodes(puntos_referencia)
 
-engine.tag_electrolineras(electrolineras)
+import networkx as nx
 
-lat = 7.14
-lon = -73.12
+origen = puntos_referencia[0]
+destino = puntos_referencia[1]
 
-current_node = ox.nearest_nodes(engine.graph, lon, lat)
+origin_node = origen["node"]
+target_node = destino["node"]
 
-estacion, ruta, distancia = engine.nearest_charging_station(
-    current_node, 
-    electrolineras
+# Ruta más corta
+ruta_dist = nx.shortest_path(
+    engine.graph,
+    origin_node,
+    target_node,
+    weight="length"
 )
 
-print ("Estación:", estacion)
-print ("Distancia:", distancia)
+# Ruta más eficiente
+ruta_energy = nx.shortest_path(
+    engine.graph,
+    origin_node,
+    target_node,
+    weight="consumo"
+)
+
+dist1 = engine.get_route_distance(ruta_dist)
+dist2 = engine.get_route_distance(ruta_energy)
+
+cons1 = engine.get_route_consumption(ruta_dist)
+cons2 = engine.get_route_consumption(ruta_energy)
+
+print("\nRuta más corta")
+print("Distancia:", dist1)
+print("Consumo:", cons1)
+
+print("\nRuta más eficiente")
+print("Distancia:", dist2)
+print("Consumo:", cons2)
