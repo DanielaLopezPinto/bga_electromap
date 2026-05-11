@@ -1,5 +1,4 @@
 import random
-
 import osmnx as ox
 import networkx as nx
 from data import electrolineras
@@ -81,7 +80,7 @@ class GraphEngine:
                     best_station = e
                     best_route = route
 
-            except:
+            except nx.NetworkXNoPath:
                 continue
 
         return best_station, best_route, min_dist
@@ -108,7 +107,13 @@ class GraphEngine:
             
             consumo += edge_data.get("consumo", 0)
         return consumo
-    
+
+    def get_most_efficient_path(self, origin_node, target_node):
+        if not self.graph:
+            self.load_map()
+        return nx.shortest_path(self.graph, origin_node, target_node, weight="consumo")
+        
+        
     def get_shortest_path(self, origin_node, target_node):
         if not self.graph:
             self.load_map()

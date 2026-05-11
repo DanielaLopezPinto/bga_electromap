@@ -1,11 +1,9 @@
 from fastapi import FastAPI
 from typing import List, Dict
-from models.simulation import SimulationManager 
 import json
 import os
 
 app = FastAPI(title="BGA Electromap API")
-sim_manager = SimulationManager()
 
 DATA_PATH = "backend/data/locations.json"
 
@@ -31,14 +29,6 @@ def get_stations():
 @app.get("/status")
 def get_status():
     return {"status": "operativo", "database": "json_file"}
-
-@app.post("/recharge")
-def record_recharge(vehicle_type: str, station_id: int, battery_level: float):
-    station = next((s for s in STATIONS if s["id"] == station_id), None)
-    if not station:
-        return {"error": "Estación no encontrada"}
-    
-    return sim_manager.save_recharge_event(vehicle_type, station["name"], battery_level)
 
 if __name__ == "__main__":
     import uvicorn
