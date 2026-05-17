@@ -1,0 +1,86 @@
+[
+    {
+        "timestamp": "2026-05-16T22:55:35.060412",
+        "vehicle_type": "BYD Seagull",
+        "station": "Terpel Piedecuesta",
+        "battery_at_arrival": 18.418155054513804
+    },
+    {
+        "timestamp": "2026-05-16T22:55:41.073571",
+        "vehicle_type": "BYD Seagull",
+        "station": "Homecenter",
+        "battery_at_arrival": 18.688586014527022
+    },
+    {
+        "timestamp": "2026-05-16T22:55:42.880920",
+        "vehicle_type": "BYD Seagull",
+        "station": "Homecenter",
+        "battery_at_arrival": 19.42286817633116
+    },
+    {
+        "timestamp": "2026-05-16T22:55:44.526921",
+        "vehicle_type": "BYD Seagull",
+        "station": "Homecenter",
+        "battery_at_arrival": 19.937823547615423
+    },
+    {
+        "timestamp": "2026-05-16T22:55:48.600458",
+        "vehicle_type": "Tesla Model S LR",
+        "station": "CC Ca\u00f1averal",
+        "battery_at_arrival": 19.50225582801016
+    },
+    {
+        "timestamp": "2026-05-16T22:55:51.543170",
+        "vehicle_type": "Tesla Model S LR",
+        "station": "CC Quinta Etapa",
+        "battery_at_arrival": 19.60568726966979
+    },
+    {
+        "timestamp": "2026-05-16T22:55:54.211973",
+        "vehicle_type": "Tesla Model S LR",
+        "station": "CC Ca\u00f1averal",
+        "battery_at_arrival": 19.60128502214456
+    },
+    {
+        "timestamp": "2026-05-16T22:57:20.073453",
+        "vehicle_type": "BYD Seagull",
+        "station": "Homecenter",
+        "battery_at_arrival": 19.807421653284187
+    },
+    {
+        "timestamp": "2026-05-16T22:57:25.840877",
+        "vehicle_type": "BYD Seagull",
+        "station": "Terpel Piedecuesta",
+        "battery_at_arrival": 19.772467636478588
+    },
+    {
+        "timestamp": "2026-05-16T22:57:30.495644",
+        "vehicle_type": "BYD Seagull",
+        "station": "Homecenter",
+        "battery_at_arrival": 19.288076094592657
+    },
+    {
+        "timestamp": "2026-05-16T22:57:35.508433",
+        "vehicle_type": "BYD Seagull",
+        "station": "Homecenter",
+        "battery_at_arrival": 18.523655233244103
+    },
+    {
+        "timestamp": "2026-05-16T22:57:49.828121",
+        "vehicle_type": "Tesla Model S LR",
+        "station": "CC Ca\u00f1averal",
+        "battery_at_arrival": 19.744536638648782
+    },
+    {
+        "timestamp": "2026-05-16T22:57:56.678939",
+        "vehicle_type": "Tesla Model S LR",
+        "station": "Terpel Piedecuesta",
+        "battery_at_arrival": 18.62578328080463
+    },
+    {
+        "timestamp": "2026-05-16T22:58:04.833743",
+        "vehicle_type": "Tesla Model S LR",
+        "station": "Homecenter",
+        "battery_at_arrival": 19.359926798896314
+    }
+]

@@ -1,0 +1,12 @@
+[
+    {
+        "nombre": "BYD Seagull",
+        "bateria_max": 38.8, 
+        "Wh_por_km": 96
+    },
+    {
+        "nombre": "Tesla Model S LR",
+        "bateria_max": 100.0,  
+        "Wh_por_km": 153
+    }
+]

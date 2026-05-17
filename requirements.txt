@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+networkx
+osmnx
+scikit-learn
+pandas
+folium
