@@ -1,4 +1,3 @@
-cat << 'EOF' > .gitignore
 #virtual environment and dependencies
 .venv/
 env/
