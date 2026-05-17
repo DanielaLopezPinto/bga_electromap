@@ -1,52 +1,26 @@
-### --- Python ---
-__pycache__/
-*.py[cod]
-*$py.class
-.Python
+#virtual environment and dependencies
+.venv/
 env/
 venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
+requirements.txt.log
+
+#python and system caches
+**/__pycache__/
+.pytest_cache/
 .ipynb_checkpoints/
-*.sqlite
+cache/
+
+#project-specific files (map cache and temporary data)
+data/*.graphml
+data/simulation_logs/
+
+#automatically generated reports and plots
+*.html
+*.png
 *.csv
-*.xlsx
-*.parquet
+!data/locations.py
+!data/vehicles.py
 
-### --- Web Development (Astro, Node) ---
-node_modules/
-dist/
-build/
-.astro/
-.vercel
-.netlify
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-### --- Environment & Secrets ---
-.env
-.env.local
-.env.*.local
-*.p12
-*.pem
-*.cap
-*.cert
-
-### --- OS Specific ---
-.DS_Store
-.DS_Store?
-._*
-Thumbs.db
-desktop.ini
-
-### --- Editors (Neovim, VSCode) ---
-.vscode/
-!.vscode/settings.json
-!.vscode/extensions.json
-.idea/
-*.swp
-*.swo
-.netrwhist
-undo/
+# trained model binaries
+data/*.pkl
+EOF
