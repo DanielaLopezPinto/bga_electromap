@@ -5,20 +5,32 @@ from data import electrolineras
 
 class GraphEngine:
     def __init__(self):
+        #sefl.city define la ciudad que se descargará desde OpenStreetMap
         self.city = "Bucaramanga, Colombia"
+        # se almacena el grafo
         self.graph = None
 
-# Carga el mapa de la ciudad y prepara el grafo 
+# Carga el mapa de la ciudad y lo convierte en el grafo 
     def load_map(self):
         print(f"Cargando mapa de {self.city}...")
         self.graph = ox.graph_from_place(self.city, network_type="drive") 
-        
+        #Solo incluye calles transitables por vehículos
         self.graph = ox.add_edge_speeds(self.graph)
+        #Añade velocidad estimada a cada calle.
         self.graph = ox.add_edge_travel_times(self.graph)
         
         return self.graph
+    
+# OSMnx descarga:
+# calles,
+# intersecciones,
+# sentidos de vías,
+# conexiones.
+# Y crea un grafo donde:
+# nodos = intersecciones,
+# aristas = calles
 
-# Convertir ubicaciones a nodos
+# Convierte las ubicaciones (coordenadas) a nodos
     def assign_nodes(self, locations):
         for loc in locations:
             node = ox.nearest_nodes(self.graph, loc["lon"], loc["lat"])
@@ -45,7 +57,7 @@ class GraphEngine:
 
         return route
     
-# Calcular la distancia de una ruta
+# Calcular la distancia total de una ruta
     def get_route_distance(self, route):
         distance = 0
 
@@ -63,9 +75,10 @@ class GraphEngine:
         min_dist = float("inf")
         best_station = None
         best_route = None
-
+        # recorre todas las estaciones
         for e in electrolineras:
             try:
+                # calcula la ruta hacia cada una
                 route = nx.shortest_path(
                     self.graph,
                     current_node,
@@ -74,7 +87,7 @@ class GraphEngine:
                 )
 
                 dist = self.get_route_distance(route)
-
+                #calcula la distacia y escoge la menor
                 if dist < min_dist:
                     min_dist = dist
                     best_station = e
@@ -84,17 +97,20 @@ class GraphEngine:
                 continue
 
         return best_station, best_route, min_dist
+    # devuelve, la ruta, la distancia y la estación más cercana
     
     def energy_weight(self, consumo_por_km=0.2):
         for u, v, k, data in self.graph.edges(keys=True, data=True):
 
             distancia_km = data["length"] / 1000
-
             consumo = distancia_km * consumo_por_km
-
-            factor = random.uniform(1, 1.5)
+            
+# Se usa para generar variaciones aleatorias en el consumo energético:
+# tráfico, pendientes, frenadas, condiciones climáticas, etc.
+            factor = random.uniform(1, 1.5) 
             data["consumo"] = consumo * factor
 
+# Suma todo el consumo de una ruta para estimar el consumo total del viaje
     def get_route_consumption(self, route):
         consumo = 0
 
@@ -103,18 +119,20 @@ class GraphEngine:
             v = route[i + 1]
 
             edge_data = self.graph.get_edge_data(u, v)[0]
-
-            
             consumo += edge_data.get("consumo", 0)
         return consumo
 
+# Encuentra la ruta de menor consumo energético
     def get_most_efficient_path(self, origin_node, target_node):
         if not self.graph:
             self.load_map()
         return nx.shortest_path(self.graph, origin_node, target_node, weight="consumo")
         
-        
+# Encuentra la ruta de menor tiempo de viaje, algo un poco mas realista
+# que una ruta matematicamente mas corta
     def get_shortest_path(self, origin_node, target_node):
         if not self.graph:
             self.load_map()
-        return nx.shortest_path(self.graph, origin_node, target_node, weight="length")
+        return nx.shortest_path(self.graph, origin_node, target_node, weight="travel_time")
+    
+    
